@@ -92,20 +92,17 @@ BOARD_MKBOOTIMG_ARGS += --tags_offset 0x00000100
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_USE_LZ4 := true
 
-# Kernel - Prebuilt Setup (FIX PARA OVERRIDING COMMANDS)
-TARGET_PREBUILT_KERNEL := $(COMMON_PATH)-kernel/kernel
-TARGET_PREBUILT_DTB := $(COMMON_PATH)-kernel/dtb.img
-BOARD_PREBUILT_DTBOIMAGE := $(COMMON_PATH)-kernel/dtbo.img
+# Kernel - Prebuilt
+TARGET_PREBUILT_KERNEL := kernel/samsung/r8s/kernel
+TARGET_PREBUILT_DTB := kernel/samsung/r8s/dtb.img
+BOARD_PREBUILT_DTBOIMAGE := kernel/samsung/r8s/dtbo.img
 
-# Esta linha é a que resolve o erro "no known rule to make it"
 PRODUCT_COPY_FILES += \
     $(TARGET_PREBUILT_KERNEL):kernel \
     $(TARGET_PREBUILT_DTB):dtb.img
 
-# Desativa a compilação automática da LineageOS
 TARGET_NO_KERNEL := false
 TARGET_NO_KERNEL_OVERRIDE := true
-# Aponta para um diretório inexistente para forçar o sistema a não compilar nada
 TARGET_KERNEL_SOURCE := 
 TARGET_KERNEL_CONFIG := 
 
@@ -165,10 +162,6 @@ BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
-
-# Copy Kernel Files (Removido o kernel daqui para evitar o conflito de regra)
-PRODUCT_COPY_FILES += \
-    $(TARGET_PREBUILT_DTB):dtb.img
 
 # Call Samsung LSI board support package
 include hardware/samsung_slsi-linaro/config/BoardConfig9830.mk
